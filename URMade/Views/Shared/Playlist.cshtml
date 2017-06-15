@@ -1,0 +1,102 @@
+﻿@model URMade.Models.PlaylistModel
+
+@{
+    int index           = 0;
+    bool isContest      = Model.Controller == "Contest";
+    bool needToRegister = SecurityHelper.GetLoggedInUser() == null;
+}
+
+@*
+<div class="playlist dynamic" data-playlist="/@Model.Controller/Load, 25, @Model.Sort, @Model.UserId, @Model.ArtistId, @Model.Type, @Model.Name, @Model.FavoritesOnly">
+</div>
+*@
+
+<div class="playlist">
+    @if (Model.Items != null && Model.Items.Count() > 0)
+    {
+        foreach (var Item in Model.Items)
+        {
+            <div class="media-item" data-mediaurl="@Item.MediaURL" data-mediaid="@Item.MediaId" data-mediaindex="@index" data-mediatype="@Model.MediaType">
+                <div class="media-index">@(++index).</div>
+
+                @if (!string.IsNullOrEmpty(Item.AlbumArtURL))
+                {
+                    <div class="media-image" style="background-image: url('@Item.AlbumArtURL');">
+                        @if (Item.State == URMade.Models.JobState.Finished)
+                        {
+                            <button class="btn-image media-toggle media-play"></button>
+                        }
+                        else if (Item.MediaId != 0)
+                        {
+                            <span class="media-image-label">Processing</span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="media-image">
+                        <button class="btn-image media-toggle media-play"></button>
+                    </div>
+                }
+
+                <div class="media-details">
+                    <span class="media-title">@Item.Title</span>
+                    <span class="media-fans">
+                        <span class="media-fanCount">@Item.FanCount</span>
+                        @if (Model.CanFavorite)
+                        {
+                            if (!isContest)
+                            {
+                                <button data-post="/@Model.Controller/Favorite/@Item.MediaId" class="btn-image media-favorite@(Item.IsFavorited ? " favorited" : "")"></button>
+                            }
+                            else
+                            {
+                                if (!Item.IsFavorited)
+                                {
+                                    <button data-post="/@Model.Controller/CastVote/@Item.MediaId" class="btn-image media-vote">Vote</button>
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-ok-circle media-vote voted" style="color: #880000;"></span>
+                                }
+                            }
+                        }
+                        else if (needToRegister)
+                        {
+                            if (!isContest)
+                            {
+                                <a href="/Account/Register?RedirectUrl=@Context.Request.Path" class="btn-image media-favorite"></a>
+                            }
+                            else
+                            {
+                                <a href="/Account/Register?RedirectUrl=@Context.Request.Path" class="media-vote">Vote</a>
+                            }
+                        }
+                    </span>
+                    
+                    <div class="media-artist">
+                        @if (!string.IsNullOrWhiteSpace(Item.ArtistSlug))
+                        {
+                            <a href="/Artists/@Item.ArtistSlug">@Item.ArtistName</a>
+                        }
+                        else if (Model.CanEdit)
+                        {
+                            <span>Not Published</span>
+                        }
+
+                        @if (Model.CanEdit && Item.CanEdit)
+                        {
+                            <div class="media-actions">
+                                <a href="/@Model.Controller/Edit/@Item.MediaId" class="btn btn-primary btn-xs">Edit</a>
+                                <a href="javascript: void(0);" class="btn btn-danger btn-xs" data-deleteaction="/@Model.Controller/Delete/@Item.MediaId">Delete</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="media-timeline">
+                    <div></div>
+                </div>
+            </div>
+        }
+    }
+</div>

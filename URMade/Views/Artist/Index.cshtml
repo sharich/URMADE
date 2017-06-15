@@ -1,0 +1,30 @@
+﻿@model URMade.Models.PlaylistModel
+
+@{
+    ViewBag.Title = "Top Artists";
+}
+
+<h2>
+    Top Artists
+</h2>
+
+<div class="layout">
+    <div class="layout-sidebar centered">
+        <form action="/Artist">
+            <div class="form-group">
+                <b>Name</b>
+                @Html.HiddenFor(p => p.Max)
+                @Html.HiddenFor(p => p.Page)
+                @Html.TextBoxFor(p => p.Name)
+                @Html.HiddenFor(p => p.Type)
+            </div>
+            <div class="form-group">
+                <button class="playlist-customize">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="layout-content playlist artist-index">
+        @Html.Partial("Playlist", Model)
+        @Html.Partial("MediaPlayer")
+    </div>
+</div>

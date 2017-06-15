@@ -1,0 +1,24 @@
+﻿@model URMade.Models.EditSongViewModel
+
+@{
+    ViewBag.Title = "Add Song";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="page-edit">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "editForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SongId)
+        @Html.Partial("_SongForm", Model)
+    }
+
+    <br style="clear: left" />
+    <div style="text-align: right;">
+        <button data-loader="Your song is uploading..." class="btn btn-primary"><span class="glyphicon glyphicon-upload"></span> Save</button>
+    </div>
+</div>
+
+<script src="/Scripts/manage.js"></script>

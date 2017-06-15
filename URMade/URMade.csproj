@@ -1,0 +1,848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{800E53F9-FE66-40A6-96EA-341A0BEFDAAD}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>URMade</RootNamespace>
+    <AssemblyName>URMade</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BundleTransformer.Core, Version=1.9.138.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\packages\BundleTransformer.Core.1.9.138\lib\net40\BundleTransformer.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BundleTransformer.Less, Version=1.9.143.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\packages\BundleTransformer.Less.1.9.143\lib\net40\BundleTransformer.Less.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.5.2\lib\net45\ImageProcessor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.2.2.0\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=2.3.2.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Msie.2.3.2\lib\net45\JavaScriptEngineSwitcher.Msie.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.TransientFaultHandling.Core, Version=5.1.1209.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4\Microsoft.Practices.TransientFaultHandling.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.8.0.5, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.5\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer, Version=3.8.0.5, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.5\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption, Version=3.8.0.5, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.3.8.0.5\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.8.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.8.0.3\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.1.1\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MsieJavaScriptEngine, Version=2.1.2.0, Culture=neutral, PublicKeyToken=a3a2846a37ac0d3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\MsieJavaScriptEngine.2.1.2\lib\net45\MsieJavaScriptEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.9.3.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.9.3\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.1.0\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Square.Connect, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Square.Connect.2.0.2.71\lib\net45\Square.Connect.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20511.1437, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.205111437\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\background.png" />
+    <Content Include="Content\blur-backgrounds\1.png" />
+    <Content Include="Content\blur-backgrounds\10.png" />
+    <Content Include="Content\blur-backgrounds\11.png" />
+    <Content Include="Content\blur-backgrounds\12.png" />
+    <Content Include="Content\blur-backgrounds\13.png" />
+    <Content Include="Content\blur-backgrounds\14.png" />
+    <Content Include="Content\blur-backgrounds\15.png" />
+    <Content Include="Content\blur-backgrounds\16.png" />
+    <Content Include="Content\blur-backgrounds\17.png" />
+    <Content Include="Content\blur-backgrounds\18.png" />
+    <Content Include="Content\blur-backgrounds\19.png" />
+    <Content Include="Content\blur-backgrounds\2.png" />
+    <Content Include="Content\blur-backgrounds\20.png" />
+    <Content Include="Content\blur-backgrounds\21.png" />
+    <Content Include="Content\blur-backgrounds\22.png" />
+    <Content Include="Content\blur-backgrounds\23.png" />
+    <Content Include="Content\blur-backgrounds\24.png" />
+    <Content Include="Content\blur-backgrounds\25.png" />
+    <Content Include="Content\blur-backgrounds\26.png" />
+    <Content Include="Content\blur-backgrounds\27.png" />
+    <Content Include="Content\blur-backgrounds\28.png" />
+    <Content Include="Content\blur-backgrounds\29.png" />
+    <Content Include="Content\blur-backgrounds\3.png" />
+    <Content Include="Content\blur-backgrounds\30.png" />
+    <Content Include="Content\blur-backgrounds\31.png" />
+    <Content Include="Content\blur-backgrounds\4.png" />
+    <Content Include="Content\blur-backgrounds\5.png" />
+    <Content Include="Content\blur-backgrounds\6.png" />
+    <Content Include="Content\blur-backgrounds\7.png" />
+    <Content Include="Content\blur-backgrounds\8.png" />
+    <Content Include="Content\blur-backgrounds\9.png" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Controls\Favorite.svg" />
+    <Content Include="Content\Controls\Play.svg" />
+    <Content Include="Content\Controls\PlayAll.svg" />
+    <Content Include="Content\Controls\Play_Featured.svg" />
+    <Content Include="Content\Controls\Play_Mini.svg" />
+    <Content Include="Content\Controls\Rolling.gif" />
+    <Content Include="Content\Controls\Stop.svg" />
+    <Content Include="Content\Controls\Stop_Mini.svg" />
+    <Content Include="Content\dragula.min.css" />
+    <Content Include="Content\editor.css" />
+    <Content Include="Content\Home\GetBranded.png" />
+    <Content Include="Content\Home\GetOnline.png" />
+    <Content Include="Content\Home\GetProtected.png" />
+    <Content Include="Content\Home\GetSwag.png" />
+    <Content Include="Content\Home\Slides\slide1.jpg" />
+    <Content Include="Content\Home\Slides\slide2.jpg" />
+    <Content Include="Content\Home\Slides\slide3.jpg" />
+    <Content Include="Content\loading.gif" />
+    <Content Include="Content\SocialIcons\500px.png" />
+    <Content Include="Content\SocialIcons\8tracks.png" />
+    <Content Include="Content\SocialIcons\airbnb.png" />
+    <Content Include="Content\SocialIcons\alliance.png" />
+    <Content Include="Content\SocialIcons\amazon.png" />
+    <Content Include="Content\SocialIcons\amplement.png" />
+    <Content Include="Content\SocialIcons\android.png" />
+    <Content Include="Content\SocialIcons\angellist.png" />
+    <Content Include="Content\SocialIcons\apple.png" />
+    <Content Include="Content\SocialIcons\appnet.png" />
+    <Content Include="Content\SocialIcons\baidu.png" />
+    <Content Include="Content\SocialIcons\bandcamp.png" />
+    <Content Include="Content\SocialIcons\battlenet.png" />
+    <Content Include="Content\SocialIcons\beam.png" />
+    <Content Include="Content\SocialIcons\bebee.png" />
+    <Content Include="Content\SocialIcons\bebo.png" />
+    <Content Include="Content\SocialIcons\behance.png" />
+    <Content Include="Content\SocialIcons\blizzard.png" />
+    <Content Include="Content\SocialIcons\blogger.png" />
+    <Content Include="Content\SocialIcons\buffer.png" />
+    <Content Include="Content\SocialIcons\chrome.png" />
+    <Content Include="Content\SocialIcons\coderwall.png" />
+    <Content Include="Content\SocialIcons\curse.png" />
+    <Content Include="Content\SocialIcons\dailymotion.png" />
+    <Content Include="Content\SocialIcons\deezer.png" />
+    <Content Include="Content\SocialIcons\delicious.png" />
+    <Content Include="Content\SocialIcons\deviantart.png" />
+    <Content Include="Content\SocialIcons\diablo.png" />
+    <Content Include="Content\SocialIcons\digg.png" />
+    <Content Include="Content\SocialIcons\discord.png" />
+    <Content Include="Content\SocialIcons\disqus.png" />
+    <Content Include="Content\SocialIcons\douban.png" />
+    <Content Include="Content\SocialIcons\draugiem.png" />
+    <Content Include="Content\SocialIcons\dribbble.png" />
+    <Content Include="Content\SocialIcons\drupal.png" />
+    <Content Include="Content\SocialIcons\ebay.png" />
+    <Content Include="Content\SocialIcons\ello.png" />
+    <Content Include="Content\SocialIcons\endomondo.png" />
+    <Content Include="Content\SocialIcons\envato.png" />
+    <Content Include="Content\SocialIcons\etsy.png" />
+    <Content Include="Content\SocialIcons\facebook.png" />
+    <Content Include="Content\SocialIcons\feedburner.png" />
+    <Content Include="Content\SocialIcons\filmweb.png" />
+    <Content Include="Content\SocialIcons\firefox.png" />
+    <Content Include="Content\SocialIcons\flattr.png" />
+    <Content Include="Content\SocialIcons\flickr.png" />
+    <Content Include="Content\SocialIcons\formulr.png" />
+    <Content Include="Content\SocialIcons\forrst.png" />
+    <Content Include="Content\SocialIcons\foursquare.png" />
+    <Content Include="Content\SocialIcons\friendfeed.png" />
+    <Content Include="Content\SocialIcons\github.png" />
+    <Content Include="Content\SocialIcons\goodreads.png" />
+    <Content Include="Content\SocialIcons\google.png" />
+    <Content Include="Content\SocialIcons\googlegroups.png" />
+    <Content Include="Content\SocialIcons\googlephotos.png" />
+    <Content Include="Content\SocialIcons\googleplus.png" />
+    <Content Include="Content\SocialIcons\googlescholar.png" />
+    <Content Include="Content\SocialIcons\grooveshark.png" />
+    <Content Include="Content\SocialIcons\hearthstone.png" />
+    <Content Include="Content\SocialIcons\hellocoton.png" />
+    <Content Include="Content\SocialIcons\heroes.png" />
+    <Content Include="Content\SocialIcons\hitbox.png" />
+    <Content Include="Content\SocialIcons\horde.png" />
+    <Content Include="Content\SocialIcons\houzz.png" />
+    <Content Include="Content\SocialIcons\icq.png" />
+    <Content Include="Content\SocialIcons\identica.png" />
+    <Content Include="Content\SocialIcons\imdb.png" />
+    <Content Include="Content\SocialIcons\instagram.png" />
+    <Content Include="Content\SocialIcons\issuu.png" />
+    <Content Include="Content\SocialIcons\istock.png" />
+    <Content Include="Content\SocialIcons\itunes.png" />
+    <Content Include="Content\SocialIcons\keybase.png" />
+    <Content Include="Content\SocialIcons\lanyrd.png" />
+    <Content Include="Content\SocialIcons\lastfm.png" />
+    <Content Include="Content\SocialIcons\line.png" />
+    <Content Include="Content\SocialIcons\linkedin.png" />
+    <Content Include="Content\SocialIcons\livejournal.png" />
+    <Content Include="Content\SocialIcons\lyft.png" />
+    <Content Include="Content\SocialIcons\macos.png" />
+    <Content Include="Content\SocialIcons\mail.png" />
+    <Content Include="Content\SocialIcons\medium.png" />
+    <Content Include="Content\SocialIcons\meetup.png" />
+    <Content Include="Content\SocialIcons\mixcloud.png" />
+    <Content Include="Content\SocialIcons\modelmayhem.png" />
+    <Content Include="Content\SocialIcons\mumble.png" />
+    <Content Include="Content\SocialIcons\myspace.png" />
+    <Content Include="Content\SocialIcons\newsvine.png" />
+    <Content Include="Content\SocialIcons\nintendo.png" />
+    <Content Include="Content\SocialIcons\odnoklassniki.png" />
+    <Content Include="Content\SocialIcons\openid.png" />
+    <Content Include="Content\SocialIcons\opera.png" />
+    <Content Include="Content\SocialIcons\outlook.png" />
+    <Content Include="Content\SocialIcons\overwatch.png" />
+    <Content Include="Content\SocialIcons\patreon.png" />
+    <Content Include="Content\SocialIcons\paypal.png" />
+    <Content Include="Content\SocialIcons\periscope.png" />
+    <Content Include="Content\SocialIcons\persona.png" />
+    <Content Include="Content\SocialIcons\pinterest.png" />
+    <Content Include="Content\SocialIcons\play.png" />
+    <Content Include="Content\SocialIcons\player.png" />
+    <Content Include="Content\SocialIcons\playstation.png" />
+    <Content Include="Content\SocialIcons\pocket.png" />
+    <Content Include="Content\SocialIcons\qq.png" />
+    <Content Include="Content\SocialIcons\quora.png" />
+    <Content Include="Content\SocialIcons\raidcall.png" />
+    <Content Include="Content\SocialIcons\ravelry.png" />
+    <Content Include="Content\SocialIcons\reddit.png" />
+    <Content Include="Content\SocialIcons\renren.png" />
+    <Content Include="Content\SocialIcons\researchgate.png" />
+    <Content Include="Content\SocialIcons\residentadvisor.png" />
+    <Content Include="Content\SocialIcons\reverbnation.png" />
+    <Content Include="Content\SocialIcons\rss.png" />
+    <Content Include="Content\SocialIcons\sharethis.png" />
+    <Content Include="Content\SocialIcons\skype.png" />
+    <Content Include="Content\SocialIcons\slideshare.png" />
+    <Content Include="Content\SocialIcons\smugmug.png" />
+    <Content Include="Content\SocialIcons\snapchat.png" />
+    <Content Include="Content\SocialIcons\songkick.png" />
+    <Content Include="Content\SocialIcons\soundcloud.png" />
+    <Content Include="Content\SocialIcons\spotify.png" />
+    <Content Include="Content\SocialIcons\stackexchange.png" />
+    <Content Include="Content\SocialIcons\stackoverflow.png" />
+    <Content Include="Content\SocialIcons\starcraft.png" />
+    <Content Include="Content\SocialIcons\stayfriends.png" />
+    <Content Include="Content\SocialIcons\steam.png" />
+    <Content Include="Content\SocialIcons\storehouse.png" />
+    <Content Include="Content\SocialIcons\strava.png" />
+    <Content Include="Content\SocialIcons\streamjar.png" />
+    <Content Include="Content\SocialIcons\stumbleupon.png" />
+    <Content Include="Content\SocialIcons\swarm.png" />
+    <Content Include="Content\SocialIcons\teamspeak.png" />
+    <Content Include="Content\SocialIcons\teamviewer.png" />
+    <Content Include="Content\SocialIcons\technorati.png" />
+    <Content Include="Content\SocialIcons\telegram.png" />
+    <Content Include="Content\SocialIcons\tripadvisor.png" />
+    <Content Include="Content\SocialIcons\tripit.png" />
+    <Content Include="Content\SocialIcons\triplej.png" />
+    <Content Include="Content\SocialIcons\tumblr.png" />
+    <Content Include="Content\SocialIcons\twitch.png" />
+    <Content Include="Content\SocialIcons\twitter.png" />
+    <Content Include="Content\SocialIcons\uber.png" />
+    <Content Include="Content\SocialIcons\ventrilo.png" />
+    <Content Include="Content\SocialIcons\viadeo.png" />
+    <Content Include="Content\SocialIcons\viber.png" />
+    <Content Include="Content\SocialIcons\viewbug.png" />
+    <Content Include="Content\SocialIcons\vimeo.png" />
+    <Content Include="Content\SocialIcons\vine.png" />
+    <Content Include="Content\SocialIcons\vkontakte.png" />
+    <Content Include="Content\SocialIcons\warcraft.png" />
+    <Content Include="Content\SocialIcons\wechat.png" />
+    <Content Include="Content\SocialIcons\weibo.png" />
+    <Content Include="Content\SocialIcons\whatsapp.png" />
+    <Content Include="Content\SocialIcons\wikipedia.png" />
+    <Content Include="Content\SocialIcons\windows.png" />
+    <Content Include="Content\SocialIcons\wordpress.png" />
+    <Content Include="Content\SocialIcons\wykop.png" />
+    <Content Include="Content\SocialIcons\xbox.png" />
+    <Content Include="Content\SocialIcons\xing.png" />
+    <Content Include="Content\SocialIcons\yahoo.png" />
+    <Content Include="Content\SocialIcons\yammer.png" />
+    <Content Include="Content\SocialIcons\yandex.png" />
+    <Content Include="Content\SocialIcons\yelp.png" />
+    <Content Include="Content\SocialIcons\younow.png" />
+    <Content Include="Content\SocialIcons\youtube.png" />
+    <Content Include="Content\SocialIcons\zapier.png" />
+    <Content Include="Content\SocialIcons\zerply.png" />
+    <Content Include="Content\SocialIcons\zomato.png" />
+    <Content Include="Content\SocialIcons\zynga.png" />
+    <Content Include="Content\urmade-logo.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Site.less" />
+    <None Include="Properties\PublishProfiles\URMade - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\URMade - Web Deploy.pubxml" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\doT.min.js" />
+    <Content Include="Scripts\dragula.min.js" />
+    <Content Include="Scripts\editable-list.js" />
+    <Content Include="Scripts\editor.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\global.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\manage.js" />
+    <Content Include="Scripts\mediaplayer.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\script.js" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="wp\wp-content\themes\urmade\header.js" />
+    <Content Include="wp\wp-content\themes\urmade\style.css" />
+    <Content Include="wp\wp-content\themes\index.php" />
+    <Content Include="wp\wp-content\themes\urmade\footer.php" />
+    <Content Include="wp\wp-content\themes\urmade\header.php" />
+    <Content Include="wp\wp-content\themes\urmade\index.php" />
+    <Content Include="wp\wp-content\themes\urmade\404.php" />
+    <Content Include="wp\wp-content\themes\urmade\front-page.php" />
+    <Content Include="wp\wp-content\themes\urmade\page.php" />
+    <Content Include="wp\wp-content\themes\urmade\single.php" />
+    <Content Include="wp\wp-content\themes\urmade\templatePartial.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\SelectOptions\Edit.cshtml" />
+    <Content Include="Views\SelectOptions\Index.cshtml" />
+    <Content Include="Views\UserGroup\Add.cshtml" />
+    <Content Include="Views\UserGroup\Details.cshtml" />
+    <Content Include="Views\UserGroup\Edit.cshtml" />
+    <Content Include="Views\UserGroup\Index.cshtml" />
+    <Content Include="Views\User\Add.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\_UserForm.cshtml" />
+    <Content Include="Views\Artist\Website.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Artist\_SocialLinkForm.cshtml" />
+    <Content Include="Views\Artist\AddSocialLink.cshtml" />
+    <Content Include="Views\Song\Create.cshtml" />
+    <Content Include="Views\Song\Delete.cshtml" />
+    <Content Include="Views\Song\Details.cshtml" />
+    <Content Include="Views\Song\Edit.cshtml" />
+    <Content Include="Views\Song\Index.cshtml" />
+    <Content Include="Views\Song\_SongForm.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SongArtist.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\FirstLogin.cshtml" />
+    <Content Include="Views\Artist\Manage.cshtml" />
+    <Content Include="Views\Manage\ManageResources.cshtml" />
+    <Content Include="Views\Video\Index.cshtml" />
+    <Content Include="Views\Video\_VideoForm.cshtml" />
+    <Content Include="Views\Video\Create.cshtml" />
+    <Content Include="Views\Shared\MediaPlayer.cshtml" />
+    <Content Include="Views\Shared\Playlist.cshtml" />
+    <Content Include="URMade.wpp.targets" />
+    <Content Include="Views\Home\Rankings.cshtml" />
+    <Content Include="Views\Video\Edit.cshtml" />
+    <Content Include="Views\Contest\Index.cshtml" />
+    <Content Include="Views\Contest\Create.cshtml" />
+    <Content Include="Views\Contest\Edit.cshtml" />
+    <Content Include="Views\Contest\_ContestForm.cshtml" />
+    <Content Include="Views\Shared\PaymentForm.cshtml" />
+    <Content Include="Views\Contest\Join.cshtml" />
+    <Content Include="Views\Song\Queue.cshtml" />
+    <Content Include="Views\Contest\Vote.cshtml" />
+    <Content Include="Views\Contest\ViewAll.cshtml" />
+    <Content Include="Views\Artist\Index.cshtml" />
+    <Content Include="Views\User\Membership.cshtml" />
+    <Content Include="Views\Account\VerifyEmail.cshtml" />
+    <Content Include="Views\Account\ResendCode.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\InitializeAccountData.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Code\AzureUploadManager.cs" />
+    <Compile Include="Code\ControllerExtensions.cs" />
+    <Compile Include="Code\DataHelper.cs" />
+    <Compile Include="Code\EmailService.cs" />
+    <Compile Include="Code\EnumName.cs" />
+    <Compile Include="Code\FileUploadManager.cs" />
+    <Compile Include="Code\HtmlHelperExtensions.cs" />
+    <Compile Include="Code\IncludeMultiple.cs" />
+    <Compile Include="Code\JsonSafeService.cs" />
+    <Compile Include="Code\PaymentManager.cs" />
+    <Compile Include="Code\Permissions.cs" />
+    <Compile Include="Code\Repositories\ArtistRepository.cs" />
+    <Compile Include="Code\Repositories\ContestRepository.cs" />
+    <Compile Include="Code\Repositories\SelectOptionRepository.cs" />
+    <Compile Include="Code\Repositories\SongRepository.cs" />
+    <Compile Include="Code\Repositories\UserGroupRepository.cs" />
+    <Compile Include="Code\Repositories\UserRepository.cs" />
+    <Compile Include="Code\Repositories\VideoRepository.cs" />
+    <Compile Include="Code\RequirePermissionAttributes.cs" />
+    <Compile Include="Code\RequireSecureConnectionFilter.cs" />
+    <Compile Include="Code\SecurityHelper.cs" />
+    <Compile Include="Code\Settings.cs" />
+    <Compile Include="Code\TableView.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArtistController.cs" />
+    <Compile Include="Controllers\ContestController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SelectOptionsController.cs" />
+    <Compile Include="Controllers\SongController.cs" />
+    <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\HandleErrorAttribute.cs" />
+    <Compile Include="Migrations\201703020311596_Initial.cs" />
+    <Compile Include="Migrations\201703020311596_Initial.Designer.cs">
+      <DependentUpon>201703020311596_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020509038_ArtistImage.cs" />
+    <Compile Include="Migrations\201703020509038_ArtistImage.Designer.cs">
+      <DependentUpon>201703020509038_ArtistImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703022208519_SongVideoDetail.cs" />
+    <Compile Include="Migrations\201703022208519_SongVideoDetail.Designer.cs">
+      <DependentUpon>201703022208519_SongVideoDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704242110158_Remove Song and Video Category.cs" />
+    <Compile Include="Migrations\201704242110158_Remove Song and Video Category.Designer.cs">
+      <DependentUpon>201704242110158_Remove Song and Video Category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704262233387_Add UploaderId to Song.cs" />
+    <Compile Include="Migrations\201704262233387_Add UploaderId to Song.Designer.cs">
+      <DependentUpon>201704262233387_Add UploaderId to Song.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704271638553_Add SubGenre to songs and videos.cs" />
+    <Compile Include="Migrations\201704271638553_Add SubGenre to songs and videos.Designer.cs">
+      <DependentUpon>201704271638553_Add SubGenre to songs and videos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704280000364_Added AssetId to Song and Video models.cs" />
+    <Compile Include="Migrations\201704280000364_Added AssetId to Song and Video models.Designer.cs">
+      <DependentUpon>201704280000364_Added AssetId to Song and Video models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704282017020_Created Contest.cs" />
+    <Compile Include="Migrations\201704282017020_Created Contest.Designer.cs">
+      <DependentUpon>201704282017020_Created Contest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705012228304_ContestEntry.cs" />
+    <Compile Include="Migrations\201705012228304_ContestEntry.Designer.cs">
+      <DependentUpon>201705012228304_ContestEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705032039441_Media Processing.cs" />
+    <Compile Include="Migrations\201705032039441_Media Processing.Designer.cs">
+      <DependentUpon>201705032039441_Media Processing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705032334567_Video Processing.cs" />
+    <Compile Include="Migrations\201705032334567_Video Processing.Designer.cs">
+      <DependentUpon>201705032334567_Video Processing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705040007307_VideoSongOwner.cs" />
+    <Compile Include="Migrations\201705040007307_VideoSongOwner.Designer.cs">
+      <DependentUpon>201705040007307_VideoSongOwner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705062156147_Added Membership.cs" />
+    <Compile Include="Migrations\201705062156147_Added Membership.Designer.cs">
+      <DependentUpon>201705062156147_Added Membership.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705262328082_Added Contest Fields.cs" />
+    <Compile Include="Migrations\201705262328082_Added Contest Fields.Designer.cs">
+      <DependentUpon>201705262328082_Added Contest Fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706011729002_Add Pending Cancel Field to Membership.cs" />
+    <Compile Include="Migrations\201706011729002_Add Pending Cancel Field to Membership.Designer.cs">
+      <DependentUpon>201706011729002_Add Pending Cancel Field to Membership.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ContestModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MembershipModels.cs" />
+    <Compile Include="Models\SelectOption.cs" />
+    <Compile Include="Models\TransactionModels.cs" />
+    <Compile Include="Models\ViewModels\AccountViewModels.cs" />
+    <Compile Include="Models\ViewModels\ArtistViewModels.cs" />
+    <Compile Include="Models\ViewModels\ContestViewModels.cs" />
+    <Compile Include="Models\ViewModels\HomeViewModel.cs" />
+    <Compile Include="Models\ViewModels\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\MembershipViewModels.cs" />
+    <Compile Include="Models\ViewModels\PlaylistModels.cs" />
+    <Compile Include="Models\ViewModels\SelectOptionViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserGroupViewModels.cs" />
+    <Compile Include="Models\ViewModels\UserViewModels.cs" />
+    <Compile Include="Models\ArtistModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703020311596_Initial.resx">
+      <DependentUpon>201703020311596_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020509038_ArtistImage.resx">
+      <DependentUpon>201703020509038_ArtistImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703022208519_SongVideoDetail.resx">
+      <DependentUpon>201703022208519_SongVideoDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704242110158_Remove Song and Video Category.resx">
+      <DependentUpon>201704242110158_Remove Song and Video Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704262233387_Add UploaderId to Song.resx">
+      <DependentUpon>201704262233387_Add UploaderId to Song.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704271638553_Add SubGenre to songs and videos.resx">
+      <DependentUpon>201704271638553_Add SubGenre to songs and videos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704280000364_Added AssetId to Song and Video models.resx">
+      <DependentUpon>201704280000364_Added AssetId to Song and Video models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704282017020_Created Contest.resx">
+      <DependentUpon>201704282017020_Created Contest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705012228304_ContestEntry.resx">
+      <DependentUpon>201705012228304_ContestEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705032039441_Media Processing.resx">
+      <DependentUpon>201705032039441_Media Processing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705032334567_Video Processing.resx">
+      <DependentUpon>201705032334567_Video Processing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705040007307_VideoSongOwner.resx">
+      <DependentUpon>201705040007307_VideoSongOwner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705062156147_Added Membership.resx">
+      <DependentUpon>201705062156147_Added Membership.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705262328082_Added Contest Fields.resx">
+      <DependentUpon>201705262328082_Added Contest Fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706011729002_Add Pending Cancel Field to Membership.resx">
+      <DependentUpon>201706011729002_Add Pending Cancel Field to Membership.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58949</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:58949/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

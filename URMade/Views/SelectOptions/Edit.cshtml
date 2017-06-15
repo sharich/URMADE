@@ -1,0 +1,46 @@
+﻿@model URMade.Models.EditSelectOptionGroupViewModel
+
+@{
+    ViewBag.Title = "Edit Option Group";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/editable-list")
+}
+<h2>Edit Option Group</h2>
+
+<div class="form-horizontal">
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.OldOptionGroupName)
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Name</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.NewOptionGroupName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Options</label>
+            <div class="col-md-8">
+                @Html.TemplateForEach(
+                    property: m => m.SelectOptions,
+                    fallbackValue: new URMade.Models.SelectOption(),
+                    template: (URMade.Models.SelectOption option) =>
+                     @<div @Html.MakeEditableListFor(m => m.SelectOptions, "Option")>
+                            <input placeholder="Text" name="Text" type="text" 
+                                   class="form-control pull-left" style="margin-right:10px" value="@option.Text" />
+                            <input placeholder="Value" name="Value" type="text" class="form-control" value="@option.Value" />
+                        </div>)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-8">
+                <button class="btn btn-primary">Save Changes</button>
+                <a href="@Url.Action("Index")" class="btn btn-default">Cancel</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,24 @@
+﻿@model URMade.Models.ConfirmEmailViewModel
+
+@{
+    ViewBag.Title = Settings.SiteName + " Account Activated!";
+}
+
+<div class="col-md-6 col-md-offset-3">
+    <h2>@ViewBag.Title.</h2>
+    Welcome to @Settings.SiteName, your email has been verified and your account has been activated.
+</div>
+
+
+<br style="clear: left;" /><br />
+
+<div style="text-align: center;">
+    @if (Model != null && !string.IsNullOrWhiteSpace(Model.RedirectUrl))
+    {
+        <a href="@Model.RedirectUrl" class="btn btn-primary">Continue</a>
+    }
+    else
+    {
+        <a href="/User/FirstLogin" class="btn btn-primary">Continue</a>
+    }
+</div>

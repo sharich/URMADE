@@ -1,0 +1,22 @@
+﻿@model URMade.Models.EditContestViewModel
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Contest</h2>
+
+<div class="page-edit">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ContestId)
+        @Html.Partial("_ContestForm", Model)
+
+        <br style="clear: left" />
+        <div style="text-align: right;">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    }
+</div>

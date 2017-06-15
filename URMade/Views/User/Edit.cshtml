@@ -1,0 +1,26 @@
+﻿@model EditUserViewModel
+@{
+    ViewBag.Title = "Edit User";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/editable-list")
+}
+
+<h2>Edit</h2>
+
+<div class="form-horizontal">
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.Partial("_UserForm", Model)
+
+    <div class="form-group">
+        <div class="col-md-10 col-md-offset-2">
+            <button class="btn btn-primary">Update Profile</button>
+            <a href="@Url.Action("Details", new { id = Model.Id })" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+}
+</div>

@@ -1,0 +1,22 @@
+﻿@model ManageBlobIndexModel
+
+@{
+    ViewBag.Title = "Manage Resources";
+}
+
+<ul>
+@foreach (var container in Model.Containers)
+{
+    <li>
+        @container.Name
+        <ul>
+            @foreach (var blob in container.Blobs)
+            {
+                <li>
+                    @blob.Name
+                </li>
+            }
+        </ul>
+    </li>
+}
+</ul>

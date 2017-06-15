@@ -1,0 +1,43 @@
+﻿@model URMade.Models.ContestVotingViewModel
+@{
+    ViewBag.Title = "Vote";
+}
+
+<style>
+    
+</style>
+
+<h2>Contests</h2>
+
+@Html.Partial("MediaPlayer")
+
+<div class="layout">
+    <div class="layout-sidebar">
+    </div>
+
+    <div class="layout-content">
+        <div class="contest-vote-details">
+            <div class="list-contests">
+                <div style="background-image: url('@Model.Details.ImageURL');">
+                    <div class="contest-buttons">
+
+                    </div>
+                </div>
+            </div>
+            <div><h2>@Model.Details.Name</h2></div>
+            <div><h3>@Model.Details.Subtitle</h3></div>
+            <div>@Model.Details.Start.ToString("MMMM dd yyyy") - @Model.Details.End.ToString("MMMM dd yyyy")</div>
+            <div>@Model.Details.Description</div>
+        </div>
+        <div class="contest-vote-playlist playlist-contest playlist-audio">
+            @Html.Partial("Playlist", Model.Playlist)
+        </div>
+    </div>
+</div>
+
+@Html.BootstrapModal(
+        title: "Confirm Vote",
+        id: "confirmVote",
+        confirmLabel: "Vote",
+        body: @<div>Are you sure you want to vote for this contest entry?<br />You can only vote for one entry and you cannot change your vote.</div>,
+        actionUrl: Url.Action("CastVote", new { id = 0 }))

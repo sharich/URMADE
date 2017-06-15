@@ -1,0 +1,35 @@
+﻿@model UserGroupIndexViewModel
+@{
+    ViewBag.Title = "All User Groups";
+}
+
+<h2>
+    <a href="@Url.Action("Add")" class="pull-right btn btn-primary">
+        Add User Group
+    </a>
+    User Groups
+</h2>
+
+
+<table class="table-striped table">
+   <thead>
+       <tr>
+           <th>Name</th>
+           <th>Users</th>
+           <th>Permission Groups</th>
+       </tr>
+   </thead> 
+   <tbody>
+       @foreach(UserGroupViewModel group in Model.UserGroups)
+       {
+           <tr data-clickable-row="@Url.Action("Details", new { id = group.Id })">
+               <td>@group.Name</td>
+               <td>
+                   @(group.UserCount == 0 ? "No" : ""+group.UserCount) 
+                   User@(group.UserCount != 1 ? "s":"")
+               </td>
+               <td>@String.Join(", ", group.PermissionGroups.OrderBy(p => p))</td>
+           </tr>
+       }
+   </tbody>
+</table>

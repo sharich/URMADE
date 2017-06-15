@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="3.55556in" height="3.55556in"
+     viewBox="0 0 256 256">
+  <circle cx="128" cy="128" r="128" fill="#880000"></circle>
+  <path id="Play"
+        fill="white" stroke="none"
+        d="M 84.97,69.43
+           C 84.97,94.30 84.97,177.71 84.97,202.74
+             84.97,207.27 87.58,208.46 92.08,205.99
+             115.23,193.30 188.27,153.24 211.59,140.45
+             216.16,137.95 216.17,135.02 211.62,132.50
+             188.38,119.63 115.55,79.30 92.23,66.38
+             87.64,63.85 84.97,64.95 84.97,69.43 Z" />
+</svg>

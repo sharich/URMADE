@@ -1,0 +1,248 @@
+﻿@model UserViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<div class="profile">
+
+    @* Control Panel *@
+    @if (Model.CanEditUser)
+    {
+        <div class="control-panel">
+            <a class="btn btn-primary btn-xs" href="@Url.Action("Edit", new {id = Model.Id})">Edit Profile</a>
+            <a class="btn btn-primary btn-xs" href="@Url.Action("ChangePassword", new {id = Model.Id})">Change Password</a>
+            <a class="btn btn-primary btn-xs" href="#" onclick="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            <div class="extra_options">
+                @if (Model.CanImpersonate)
+                {
+                    using (Html.BeginForm("Impersonate", "User", new { id = Model.Id }, FormMethod.Post))
+                    {
+                        <button class="btn btn-primary btn-xs">Impersonate</button>
+                    }
+                }
+
+                @if (Model.CanManageUsers)
+                {
+                    using (Html.BeginForm("SendPasswordResetEmail", "User"))
+                    {
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button class="btn btn-default btn-xs">Send Password Reset Email</button>
+                    }
+
+                    using (Html.BeginForm("SendNewAccountEmail", "User"))
+                    {
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button class="btn btn-default btn-xs">Send New Account Email</button>
+                    }
+
+                    if (Model.Disabled)
+                    {
+                        using (Html.BeginForm("EnableLogin", "User", new { id = Model.Id }, FormMethod.Post))
+                        {
+                            <button class="btn btn-warning btn-xs">Enable Login</button>
+                        }
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("DisableLogin", "User", new { id = Model.Id }, FormMethod.Post))
+                        {
+                            <button class="btn btn-warning btn-xs">Disable Login</button>
+                        }
+                    }
+
+                    <button @Html.TriggerModal("confirmDelete") class="btn btn-warning btn-xs">Delete User</button>
+                }
+            </div>
+        </div>
+    }
+
+    @* Title *@
+    <h2>@(Model.IsLoggedInUser ? "Your Account" : (Model.CanEditUser) ? "Manage User" : Model.Name)</h2>
+
+    @* Notifications *@
+    <div class="notifications">
+        @if (Model.Disabled)
+        {
+            <div class="alert alert-danger">
+                <h4>This user is disabled</h4>
+            </div>
+        }
+    </div>
+
+    @* Details *@
+    <div class="layoutRow">
+        <div class="displayPictureContainer">
+            @if (!string.IsNullOrEmpty(@Model.PhotoURL))
+            {
+                <div class="displayPicture" style="background-image: url('@Model.PhotoURL');"></div>}
+            else
+            {
+                <div class="displayPicture">No photo selected</div>
+            }
+        </div>
+        <div class="details">
+            <div class="layoutColumns2">
+                <span>Account Type</span><span>@Model.AccountType</span>
+
+                @if (!string.IsNullOrWhiteSpace(Model.Name))
+                {
+                    <span>Name</span><span>@Model.Name</span>
+                }
+                @if (Model.CanEditUser) { 
+                    if (Settings.UsernameSameAsEmail)
+                    {
+                        <span>Username / Email</span><span>@Model.Email</span>
+                    }
+                    else
+                    {
+                        <span>Username</span><span>@Model.UserName</span>
+                        <span>Email</span><span>@Model.Email</span>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    @* Biography *@
+    @if (Model.Biography != null)
+    {
+        <h3>Biography</h3>
+        <div>@Html.Raw(Model.Biography)</div>
+    }
+
+    @* Artists *@
+    @if (Model.Artists != null && Model.Artists.Count > 0)
+    {
+        <h3>Your Artist Website</h3>
+
+        if (Model.CanHaveMultipleArtists)
+        {
+            using (Html.BeginForm("AddArtist", "Artist", FormMethod.Post, new { @class = "inline-button", id = "addWebsiteForm" }))
+            {
+                <a href="#" class="btn btn-primary btn-xs" onclick="javascript: document.getElementById('addWebsiteForm').submit()">Add new Artist</a>
+            }
+
+            <div class="artists">
+                @foreach (URMade.Models.ArtistResultViewModel Artist in Model.Artists)
+                {
+                    <div>
+                        <a href="@Artist.WebsiteURL">
+                            <img src="@Artist.ImageURL" />
+                            <span>@(!string.IsNullOrEmpty(Artist.Name) ? Artist.Name : "Artist")</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            var Artist  = Model.Artists[0];
+
+            <div class="artists">
+                <div>
+                    <a href="@Artist.WebsiteURL">
+                        <img src="@Artist.ImageURL" />
+                        <span>@(!string.IsNullOrEmpty(Artist.Name) ? Artist.Name : "Artist")</span>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+    else if (Model.IsLoggedInUser)
+    {
+        <h3>Your Artist Website</h3>
+
+        using (Html.BeginForm("AddArtist", "Artist", FormMethod.Post, new { @class = "inline-button", id = "addWebsiteForm" }))
+        {
+            <a href="#" class="btn btn-primary btn-xs" onclick="javascript: document.getElementById('addWebsiteForm').submit()">Add new Artist</a>
+        }
+
+        <div>You have not created an artist website yet.</div>
+    }
+
+    @* Favorites *@
+    <div class="favorites">
+        @* Favorite Songs *@
+        @if (Model.FavoriteSongsArePublic || Model.CanEditUser)
+        {
+            <div class="favorite-songs">
+                <h4>Favorite Songs</h4>
+                @if (Model.CanEditUser)
+                {
+                    <span class="privacy-label">@(Model.FavoriteSongsArePublic ? "Public" : "Private")</span>
+                }
+                @foreach (URMade.Models.Song Song in Model.FavoriteSongs)
+                {
+                    if (Song.Artist == null) {continue;}
+
+                    <div>
+                        <img src="@Song.AlbumArtURL" />
+                        <span>@Song.Title</span>
+                        <span><a href="/Artists/@Song.Artist.Slug">@Song.Artist.Name</a></span>
+                    </div>
+                }
+            </div>
+        }
+
+        @* Favorite Videos *@
+        @if (Model.FavoriteVideosArePublic || Model.CanEditUser)
+        {
+            <div class="favorite-videos">
+                <h4>Favorite Videos</h4>
+                @if (Model.CanEditUser)
+                {
+                    <span class="privacy-label">@(Model.FavoriteVideosArePublic ? "Public" : "Private")</span>
+                }
+                @foreach (URMade.Models.Video Video in Model.FavoriteVideos)
+                {
+                    if (Video.Artist == null) {continue;}
+
+                    <div>
+                        <img src="@Video.AlbumArtURL" />
+                        <span>@Video.Title</span>
+                        <span><a href="/Artists/@Video.Artist.Slug">@Video.Artist.Name</a></span>
+                    </div>
+                }
+            </div>
+        }
+
+        @* Favorite Artists *@
+        @if (Model.FavoriteArtistsArePublic || Model.CanEditUser)
+        {
+            <div class="favorite-artists">
+                <h4>Favorite Artists</h4>
+                @if (Model.CanEditUser)
+                {
+                    <span class="privacy-label">@(Model.FavoriteArtistsArePublic ? "Public" : "Private")</span>
+                }
+                @foreach (URMade.Models.ArtistResultViewModel Artist in Model.FavoriteArtists)
+                {
+                    <div>
+                        <a href="@Artist.WebsiteURL">
+                            <img src="@Artist.ImageURL" />
+                            <span>@Artist.Name</span>
+                            <br />
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right"}))
+{
+    @Html.AntiForgeryToken()
+}
+
+@Html.BootstrapModal(
+        title: "Confirm Delete User",
+        id: "confirmDelete",
+        confirmLabel: "Delete User",
+        body: @<div>Are you sure you want to delete this user?</div>,
+        actionUrl: Url.Action("Delete", new { id = Model.Id }))

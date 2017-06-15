@@ -1,0 +1,20 @@
+﻿@model URMade.Models.SocialLinkViewModel
+@{
+    ViewBag.Title = "Add Social Link";
+}
+
+<h2>Add Social Link</h2>
+
+<div class="form-horizontal">
+    @using (Html.BeginForm())
+    {
+        @Html.Partial("_SocialLinkForm", Model)
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary">Add Social Link</button>
+                <a href="@Url.Action("Website",new { Id = Model.ArtistId })" class="btn btn-default">Cancel</a>
+            </div>
+        </div>
+    }
+</div>

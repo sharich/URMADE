@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "First Login";
+    var id = SecurityHelper.GetLoggedInUser().Id;
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<style>
+    .FirstLogin
+    {
+        padding:    128px 48px 256px 48px;
+        font-size:  24px;
+        text-align: center;
+    }
+
+    .FirstLogin > div
+    {
+        margin-bottom: 72px;
+    }
+
+    .FirstLogin a
+    {
+        font-size:  32px;
+        padding:    48px;
+    }
+</style>
+
+<div class="FirstLogin">
+    <div>What would you like to do first?</div>
+    <a href="/Song/">Listen and Rate Music</a>
+    <a href="/User/Edit/@id?AddArtist=True">Add Artist Website</a>
+</div>

@@ -1,0 +1,21 @@
+﻿@model URMade.Models.SocialLinkViewModel
+
+@Html.HiddenFor(p => p.ArtistId)
+
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Name, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.RadioButtonForSelectList(p => p.Name, DataHelper.GetSelectListItems("Social Links"))
+
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.URL, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.URL, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.URL, "", new { @class = "text-danger" })
+    </div>
+</div>

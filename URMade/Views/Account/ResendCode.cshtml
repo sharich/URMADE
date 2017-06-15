@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = Settings.SiteName + " Account Activation";
+}
+
+<div class="col-md-6 col-md-offset-3">
+    <h1>@ViewBag.Title</h1>
+    Account verification is required before you may login to @(Settings.SiteName). A verification code has already been sent to the email address you provided earlier. Please use the link in the email to activate your account.
+</div>
+
+<br style="clear: left;" /><br />
+
+<div style="text-align: center;">
+    <form method="post" action="/Account/ResendCode">
+        <input type="hidden" name="Id" value="@ViewBag.UserId" />
+        <input type="submit" class="btn btn-primary" value="Resend Code" />
+    </form>
+</div>

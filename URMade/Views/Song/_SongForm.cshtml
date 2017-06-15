@@ -1,0 +1,66 @@
+﻿@model URMade.Models.EditSongViewModel
+
+<div class="edit image-selector @(string.IsNullOrWhiteSpace(Model.AlbumArtURL) ?  "empty" : "")" style="background-image: url('@Model.AlbumArtURL');">
+    <button class="btn btn-danger btn-xs" data-btnaction="delete">Delete</button>
+    <input type="hidden" name="DeleteAlbumArt" value="false" />
+    <input type="file" name="AlbumArt" accept="image/*" />
+</div>
+
+<div class="details">
+    <div class="layoutColumns2">
+        <span>Audio</span>
+        <span>
+            @if (Model.AlreadyExists)
+            {
+                <span>The audio file cannot be changed. If you need to upload a new audio file, delete this song and start over.</span>
+            }
+            else
+            {
+                <span class="edit file-upload-selector" data-mediaurl="@Model.SmoothStreamingUri">
+                    <span class="media-file-title">No file selected</span>
+                    <input type="file" name="Audio" accept="audio/*" />
+                </span>
+
+                <br />
+                @Html.ValidationMessageFor(p => p.Audio, "", new { @class = "text-danger" })
+}
+        </span>
+        <span>Title</span>
+        <span>
+            <input type="text" name="Title" value="@Model.Title" class="form-control" required />
+            @Html.ValidationMessageFor(p => p.Title, "", new { @class = "text-danger" })
+        </span>
+        <span>Genre</span>
+        <span>
+            @Html.DropDownListFor(p => p.SubGenre, DataHelper.GetSelectListItems("Genre"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.SubGenre, "", new { @class = "text-danger" })
+        </span>
+    </div>
+    <span class="publish-selector">
+        <b>Publish on your artist website</b>
+        @if (Model.Publish.AllowPublish)
+        {
+            <span id="publish-list">
+                @{int i = 0;}
+                <br />
+                <label><input type="radio" name="Publish.Selected" value="-1" @(Model.Publish.Selected < 0 ? "checked" : "") />Private</label>
+                @foreach (var item in Model.Publish.Items)
+                {
+                    <br />
+                    <input type="hidden" name="Publish.Items[@i].ArtistId" value="@item.ArtistId" />
+                    <input type="hidden" name="Publish.Items[@i].ArtistName" value="@item.ArtistName" />
+                    <label><input type="radio" name="Publish.Selected" value="@i" @(Model.Publish.Selected == i ? "checked" : "") />@item.ArtistName</label>
+
+                    ++i;
+                }
+            </span>
+        }
+        else
+        {
+            <span style="display: block;">
+                Sorry! You have exceeded the number of songs you can publish.
+                Become a <a href="/User/Membership">premium member</a> to publish unlimited songs.
+            </span>
+        }
+    </span>
+</div>

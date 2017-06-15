@@ -1,0 +1,220 @@
+﻿@model URMade.Models.MembershipViewModel
+
+@{
+    ViewBag.Title = "Membership";
+}
+
+<h2>
+    Membership
+</h2>
+
+<div class="membership-form">
+    @if (Model.IsPaid)
+    {
+        <div class="center-content">
+            Your membership is active!<br /><br />
+        </div>
+
+        if (Model.AutomaticRenew)
+        {
+            <div class="center-content">
+                Your next payment will be automatically charged on:<br/>
+                <b>@Model.NextPayment.ToString("MMMM dd yyyy")</b><br /><br />
+
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="ToggleAutomaticRenewal" value="true" />
+
+                    <div class="center-content">
+                        <input type="submit" class="btn-styled" value="Cancel automatic renewal" />
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="center-content">
+                Your premium membership will expire on:<br />
+                <b>@Model.NextPayment.ToString("MMMM dd yyyy")</b><br /><br />
+            
+                @if (Model.IsPendingCancel)
+                {
+                    using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="ToggleAutomaticRenewal" value="true" />
+
+                        <div class="center-content">
+                            <input type="submit" class="btn-styled" value="Resume automatic renewal" />
+                        </div>
+                    }
+                }
+            </div>
+        }
+
+        <div id="Change-Card-Dropdown"@(!Html.ViewData.ModelState.IsValid ? " class=open" : "")>
+            <div class="center-content">
+                Update Card Information
+                <button id="Change-Card-Dropdown-Toggle">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <span class="glyphicon glyphicon-minus-sign"></span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "nonce-form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(p => p.CardNonce)
+                <input type="hidden" name="UpdateCardInformation" value="true" />
+
+                <div class="payment-form">
+                    <div>
+                        <label>First Name*</label>
+                        @Html.TextBoxFor(p => p.FirstName)
+                        <div class="text-danger">@Html.ValidationMessageFor(p => p.FirstName)</div>
+                    </div>
+
+                    <div>
+                        <label>Last Name*</label>
+                        @Html.TextBoxFor(p => p.LastName)
+                        <div class="text-danger">@Html.ValidationMessageFor(p => p.LastName)</div>
+                    </div>
+
+                    <div>
+                        <label>Email Address*</label>
+                        @Html.TextBoxFor(p => p.Email)
+                        <div class="text-danger">@Html.ValidationMessageFor(p => p.Email)</div>
+                    </div>
+
+                    <div>
+                        <label>Name on Card*</label>
+                        @Html.TextBoxFor(p => p.NameOnCard)
+                        <div class="text-danger">@Html.ValidationMessageFor(p => p.NameOnCard)</div>
+                    </div>
+
+                    @Html.Partial("PaymentForm")
+                    <div class="text-danger">
+                        @Html.ValidationSummary()
+                    </div>
+                </div>
+
+                if (Model.IsPendingCancel)
+                {
+                    <div class="center-content">
+                        This card will be automatically charged on:<br />
+                        <b>@Model.NextPayment.ToString("MMMM dd yyyy")</b>
+                    </div>
+                    <br /><br />
+                }
+
+                <div class="center-content">
+                    <input type="submit" class="btn-styled" value="Update Card Information" onclick="requestCardNonce(event)" />
+                </div>
+            }
+        </div>
+
+        <script>
+            (function()
+            {
+                var box     = document.getElementById("Change-Card-Dropdown");
+                var toggle  = document.getElementById("Change-Card-Dropdown-Toggle");
+
+                toggle.onclick = function(event)
+                {
+                    if (box.className.indexOf("open") >= 0)
+                        box.className = "";
+                    else
+                        box.className = "open";
+                }
+            })();
+        </script>
+    }
+    else if (Model.AutomaticRenew)
+    {
+        <div class="center-content">
+            Your membership has expired but will automatically renew soon.<br /><br />
+
+            <div>
+                Your membership expired on:<br/>
+                <b>@Model.NextPayment.ToString("MMMM dd yyyy")</b><br /><br />
+            </div>
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(p => p.CardNonce)
+                <input type="hidden" name="CancelAutomaticRenewal" value="true" />
+                <input type="submit" class="btn-styled" value="Cancel automatic renewal" />
+            }
+        </div>
+    }
+    else
+    {
+        using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "nonce-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(p => p.CardNonce)
+
+            if (!Model.IsRenewal)
+            {
+                <div class="center-content">
+                    Your credit card will be charged <span style="color: green; font-size: 20px;">$14.95</span> every month.<br />
+                    You may discontinue your premium membership any time.<br /><br />
+
+                    Gain these additional features:<br /><br />
+                    <ul>
+                        <li>Publish an unlimited number of songs</li>
+                        <li>Publish music videos</li>
+                        <li>Get a more customizeable artist website</li>
+                        <li>Discounts on contest entry fees</li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="center-content">
+                    Your premium membership has expired!<br/>
+                    Pay <span style="color: green; font-size: 20px;">$14.95</span> to renew your membership for this month.<br/><br/>
+                </div>
+            }
+
+            <div class="payment-form">
+                <div>
+                    <label>First Name*</label>
+                    @Html.TextBoxFor(p => p.FirstName)
+                    <div class="text-danger">@Html.ValidationMessageFor(p => p.FirstName)</div>
+                </div>
+
+                <div>
+                    <label>Last Name*</label>
+                    @Html.TextBoxFor(p => p.LastName)
+                    <div class="text-danger">@Html.ValidationMessageFor(p => p.LastName)</div>
+                </div>
+
+                <div>
+                    <label>Email Address*</label>
+                    @Html.TextBoxFor(p => p.Email)
+                    <div class="text-danger">@Html.ValidationMessageFor(p => p.Email)</div>
+                </div>
+
+                <div>
+                    <label>Name on Card*</label>
+                    @Html.TextBoxFor(p => p.NameOnCard)
+                    <div class="text-danger">@Html.ValidationMessageFor(p => p.NameOnCard)</div>
+                </div>
+
+                @Html.Partial("PaymentForm")
+                <div class="text-danger">
+                    @Html.ValidationSummary()
+                </div>
+            </div>
+    
+            <div class="center-content">
+                <b>Your card information will be stored for the purpose of automatically renewing your membership monthly.</b>
+                <br /><br/>
+                <input type="submit" class="btn-styled" onclick="requestCardNonce(event)" />
+            </div>
+        }
+    }
+</div>

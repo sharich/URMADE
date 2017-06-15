@@ -1,0 +1,46 @@
+﻿@model URMade.Models.ArtistIndexViewModel
+
+@{
+    ViewBag.Title = "Manage Artists";
+}
+
+<h2>
+    Manage Artists
+</h2>
+
+@if (Model.Artists == null || Model.Artists.Count() == 0)
+{
+    <div class="well">There are no artists for this application.</div>
+}
+else
+{
+    <table class="table table-striped table-elastic">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Fans</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Artist in Model.Artists)
+            {
+                <tr>
+                    <td><a href="/Artists/@Artist.Slug">@Artist.Name</a></td>
+                    <td>@Artist.ArtistType</td>
+                    <td>@(Artist.Fans != null ? Artist.Fans.Count() : 0)</td>
+                    <td><a href="javascript: void(0);" data-deleteaction="/Artist/Delete/@Artist.ArtistId" class="btn btn-warning btn-xs">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.BootstrapModal(
+        title: "Confirm Delete Artist",
+        id: "confirmDelete",
+        confirmLabel: "Delete Artist",
+        body: @<div>Are you sure you want to delete this artist?</div>,
+        actionUrl: Url.Action("Delete", new { id = 0 }))
+
+    <script src="/Scripts/manage.js"></script>
+}

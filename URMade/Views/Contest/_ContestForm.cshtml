@@ -1,0 +1,75 @@
+﻿@model URMade.Models.EditContestViewModel
+
+<b>Background Image</b><i>(Recommended dimensions: 640 x 210)</i>
+<div class="edit image-selector banner @(string.IsNullOrWhiteSpace(Model.ImageURL) ?  "empty" : "")" style="background-image: url('@Model.ImageURL');">
+    <button class="btn btn-danger btn-xs" data-btnaction="delete">Delete</button>
+    <input type="hidden" name="DeleteImage" value="false" />
+    <input type="file" name="Image" accept="image/*" />
+</div>
+
+<br style="clear: left;" /><br /><br /><br />
+
+<div class="layoutColumns2">
+    <span>Title</span>
+    <span>
+        @Html.TextBoxFor(p => p.Name)
+        @Html.ValidationMessageFor(p => p.Name, "", new { @class = "text-danger" })
+    </span>
+
+    <span>Subtitle</span>
+    <span>
+        <input type="text" name="Subtitle" value="@Model.Subtitle" />
+        @Html.ValidationMessageFor(p => p.Subtitle, "", new { @class = "text-danger" })
+    </span>
+
+    <span>Type</span>
+    <span>
+        <label><input type="radio" name="Type" @(Model.Type == URMade.Models.ContestType.None ? "checked" : "") value="0" />Hidden</label>
+        <label><input type="radio" name="Type" @(Model.Type == URMade.Models.ContestType.Song ? "checked" : "") value="1" />Song</label>
+        <label><input type="radio" name="Type" @(Model.Type == URMade.Models.ContestType.Video ? "checked" : "") value="2" />Video</label>
+        @Html.ValidationMessageFor(p => p.Type, "", new { @class = "text-danger" })
+    </span>
+    <span>Start</span>
+    <span>
+        <span class="glyphicon glyphicon-calendar"></span>
+        <input type="date" name="Start" value="@Model.Start" />
+        @Html.ValidationMessageFor(p => p.Start, "", new { @class = "text-danger" })
+    </span>
+
+    <span>End</span>
+    <span>
+        <span class="glyphicon glyphicon-calendar"></span>
+        <input type="date" name="End" value="@Model.End" />
+        @Html.ValidationMessageFor(p => p.End, "", new { @class = "text-danger" })
+    </span>
+
+    <span>Entry Price</span>
+    <span>
+        <input type="number" name="EntryPrice" min="0.0" step="0.01" value="@Model.EntryPrice" />
+        @Html.ValidationMessageFor(p => p.EntryPrice, "", new { @class = "text-danger" })
+    </span>
+
+    <span>Member Entry Price</span>
+    <span>
+        <input type="number" name="MemberEntryPrice" min="0.0" step="0.01" value="@Model.MemberEntryPrice" />
+        @Html.ValidationMessageFor(p => p.MemberEntryPrice, "", new { @class = "text-danger" })
+    </span>
+
+    <span>CSS Class</span>
+    <span>
+        <input type="text" name="CSSClassName" value="@Model.CSSClassName" />
+        @Html.ValidationMessageFor(p => p.CSSClassName, "", new { @class = "text-danger" })
+    </span>
+</div>
+
+<div>
+    <div><b>Description</b></div>
+    <textarea name="Description" style="max-width: 400px; width: 400px; height: 128px;">@Model.Description</textarea>
+    @Html.ValidationMessageFor(p => p.Description, "", new { @class = "text-danger" })
+
+    <div><b>Rules</b></div>
+    <textarea name="Rules" style="max-width: 400px; width: 400px; height: 128px;">@Model.Rules</textarea>
+    @Html.ValidationMessageFor(p => p.Rules, "", new { @class = "text-danger" })
+</div>
+
+<script src="/Scripts/manage.js"></script>

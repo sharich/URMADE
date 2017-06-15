@@ -1,0 +1,62 @@
+﻿@model URMade.Models.PlaylistModel
+@{
+    ViewBag.Title = "Videos";
+}
+
+<div class="layout">
+    <div class="layout-sidebar centered">
+        <h3>Videos</h3>
+        <form action="/Video">
+            <div class="playlist-filters form-group">
+                @Html.HiddenFor(p => p.UserId)
+                @Html.HiddenFor(p => p.Max)
+                @Html.HiddenFor(p => p.Page)
+                <label><b>Sort</b> @Html.DropDownListFor(p => p.Sort, DataHelper.GetSelectListItems("Sort"))</label>
+                <label><b>Genre</b> @Html.DropDownListFor(p => p.Type, DataHelper.GetSelectListItems("Genre"))</label>
+                <label><b>Name</b> @Html.TextBoxFor(p => p.Name)</label>
+                <label><input type="checkbox" name="FavoritesOnly" value="true"@(Model.FavoritesOnly ? " checked" : "") />My Favorites</label>
+            </div>
+            <div class="centered"><button class="playlist-customize">Filter</button></div>
+        </form>
+    </div>
+    <div class="layout-content playlist">
+        @if (Model.CanEdit)
+        {
+            if (Model.IsProcessing)
+            {
+                <div class="notification-processing">
+                    You have one or more videos processing.<br />
+                    Click @Html.ActionLink("Refresh", "MyVideos") to update the status of your videos.
+                </div>
+
+                <div class="btn-add-container">
+                    @Html.ActionLink("Refresh", "MyVideos", null, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Add Video", "Create", null, new { @class = "btn btn-primary" })
+                </div>
+            }
+            else
+            {
+                <div class="btn-add-container">
+                    @Html.ActionLink("Add Video", "Create", null, new { @class = "btn btn-primary" })
+                </div>
+            }
+        }
+
+        <div class="playlist-video">
+            @Html.Partial("MediaPlayer", Model)
+            @Html.Partial("Playlist", Model)
+        </div>
+    </div>
+</div>
+
+@if (Model.CanEdit)
+{
+    @Html.BootstrapModal(
+        title: "Confirm Delete " + Model.Controller,
+        id: "confirmDelete",
+        confirmLabel: "Delete " + Model.Controller,
+        body: @<div>Are you sure you want to delete this @Model.Controller.ToLower()?</div>,
+        actionUrl: Url.Action("Delete", new { id = 0 }))
+
+    <script src="/Scripts/manage.js"></script>
+}

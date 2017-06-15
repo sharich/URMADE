@@ -1,0 +1,96 @@
+﻿<script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
+
+<script>
+    var paymentFormErrors = null;
+    var paymentForm = new SqPaymentForm({
+        applicationId:  "sandbox-sq0idp--45-1vEuXDVlwN4VR1_mYQ",
+        inputClass:     "sq-input",
+        inputStyles:    [{fontSize: "15px"}],
+        cardNumber:     {elementId: "sq-card-number",       placeholder: "•••• •••• •••• ••••"},
+        cvv:            {elementId: "sq-cvv",               placeholder: ""},
+        expirationDate: {elementId: "sq-expiration-date",   placeholder: "MM/YY"},
+        postalCode:     {elementId: "sq-postal-code"},
+        callbacks:
+        {
+            cardNonceResponseReceived: function(errors, nonce, cardData)
+            {
+                if (errors)
+                {
+                    var html = "";
+                    errors.forEach(function(error)
+                    {
+                        html += error.message + "<br />";
+                    });
+
+                    paymentFormErrors.innerHTML = html;
+                }
+                else
+                {
+                    document.getElementById("CardNonce").value = nonce;
+                    document.getElementById("nonce-form").submit();
+                }
+            },
+            unsupportedBrowserDetected: function()
+            {
+
+            },
+            inputEventReceived: function(inputEvent)
+            {
+                switch (inputEvent.eventType)
+                {
+                    case "focusClassAdded":
+                        break;
+
+                    case "focusClassRemoved":
+                        break;
+
+                    case "errorClassAdded":
+                        break;
+
+                    case "errorClassRemoved":
+                        break;
+
+                    case "cardBrandChanged":
+                        break;
+
+                    case "postalCodeChanged":
+                        break;
+                }
+            },
+            paymentFormLoaded: function()
+            {
+                paymentFormErrors = document.getElementById("payment-form-validation");
+            }
+        }
+    });
+
+    function requestCardNonce(event)
+    {
+        event.preventDefault();
+        paymentForm.requestCardNonce();
+    }
+</script>
+
+<div>
+    <label>Card Number*</label>
+    <div id="sq-card-number"></div>
+</div>
+
+<div>
+    <label>CVV*</label>
+    <div id="sq-cvv"></div>
+</div>
+
+<div>
+    <label>Expires*</label>
+    <div id="sq-expiration-date"></div>
+</div>
+
+<div>
+    <label>ZIP Code*</label>
+    <div id="sq-postal-code"></div>
+</div>
+
+<div id="payment-form-validation" class="text-danger">
+
+</div>

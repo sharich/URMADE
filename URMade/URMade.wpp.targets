@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipWordPress">
+      <SkipAction></SkipAction>
+      <ObjectName>filePath</ObjectName>
+      <AbsolutePath>$(_DestinationContentPath)\\wp\\.*</AbsolutePath>
+      <Apply>Destination</Apply>
+      <XPath></XPath>
+    </MsDeploySkipRules>
+
+    <MsDeploySkipRules Include="SkipWordPressChildFolders">
+      <SkipAction></SkipAction>
+      <ObjectName>dirPath</ObjectName>
+      <AbsolutePath>$(_DestinationContentPath)\\wp\\.*\\*</AbsolutePath>
+      <Apply>Destination</Apply>
+      <XPath></XPath>
+    </MsDeploySkipRules>
+  </ItemGroup>
+</Project>

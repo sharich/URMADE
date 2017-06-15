@@ -1,0 +1,8 @@
+﻿@model URMade.Models.SongArtist
+
+<br />
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.Name)
+@Html.HiddenFor(m => m.ImageURL)
+@Html.CheckBoxFor(m => m.IsSelected)
+@Html.LabelFor(m => m.IsSelected, Model.Name, new { @class="list-item" })

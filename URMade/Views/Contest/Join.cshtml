@@ -1,0 +1,139 @@
+﻿@model URMade.Models.JoinContestViewModel
+
+@{
+    ViewBag.Title = "Join Contest";
+}
+
+<style>
+    .contest-join-form                              {width: 360px; margin: 32px auto;}
+    .contest-join-previous img                      {width:  128px; height: 128px;}
+    .contest-join-previous, .contest-join-noentry   {text-align: center;}
+    #SubmissionId                                   {margin: auto;}
+</style>
+
+<h2>Join Contest</h2>
+
+<div class="centered">
+    <img src="@Model.Details.ImageURL" />
+</div>
+
+<div class="contest-join-form">
+
+    @if (Model.PreviousEntry != null)
+    {
+        if (Model.PreviousEntry.Song != null)
+        {
+            var song = Model.PreviousEntry.Song;
+
+            <div class="contest-join-previous">
+                Your song has been submitted<br/>
+                Thank you!<br/><br/>
+
+                <img src="@song.AlbumArtURL" /><br/>
+                @song.Title
+            </div>
+        }
+        else if (Model.PreviousEntry.Video != null)
+        {
+            var video = Model.PreviousEntry.Video;
+
+            <div class="contest-join-previous">
+                Your video has been submitted!<br/>
+                Thank you!<br/><br/>
+
+                <img src="@video.AlbumArtURL" /><br/>
+                @video.Title
+            </div>
+        }
+    }
+    else if (Model.AvailableEntry)
+    {
+        if (Model.Price > 0m)
+        {
+            <span>Join this contest by submitting your @Model.Details.DisplayType() and paying an entry fee of $@Model.Price.</span>
+        }
+        else
+        {
+            <span>This contest is free to enter, submit your @Model.Details.DisplayType() to join.</span>
+        }
+
+        using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "nonce-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(p => p.Details.ContestId)
+            @Html.HiddenFor(p => p.CardNonce)
+
+            <br />
+
+            if (Model.Details.Type == URMade.Models.ContestType.Song)
+            {
+                <span>@Html.DropDownListFor(p => p.SubmissionId, DataHelper.GetMySongSelectListItems(), new { @class = "form-control" })</span>
+            }
+            else if (Model.Details.Type == URMade.Models.ContestType.Video)
+            {
+                <span>@Html.DropDownListFor(p => p.SubmissionId, DataHelper.GetMyVideoSelectListItems(), new { @class = "form-control" })</span>
+            }
+
+            if (Model.Details.Rules != null)
+            {
+                <div class="contest-join-rules-wrapper">
+                    <h3 class="centered">Rules</h3>
+                    <ul class="contest-join-rules">
+                        @foreach (var rule in Model.Details.Rules)
+                        {
+                            <li>@rule</li>
+                        }
+                    </ul>
+
+                    @Html.CheckBoxFor(p => p.AgreedToRules)
+                    @Html.LabelFor(p => p.AgreedToRules, "I agree to the terms and conditions of this contest.")
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(p => p.AgreedToRules)
+            }
+
+            if (Model.Price > 0m)
+            {
+                <div class="payment-form">
+                    <div>
+                        <label>Amount</label>
+                        <span class="payment-amount">$@Model.Price</span>
+                    </div>
+
+                    @Html.Partial("PaymentForm")
+                 </div>
+
+                <div class="center-content">
+                    <input type="submit" class="btn-styled" onclick="requestCardNonce(event)" />
+                </div>
+            }
+            else
+            {
+                <div class="center-content">
+                    <input type="submit" class="btn-styled" />
+                </div>
+            }
+        }
+    }
+    else
+    {
+        if (Model.Details.Type == URMade.Models.ContestType.Song)
+        {
+            <div class="contest-join-noentry">
+                You do not have any songs that can be submitted to this contest.<br /><br />
+                Please upload a song and try again.<br /><br />
+                <a href="/Song/Create">Click here to upload!</a>
+            </div>
+        }
+        else if (Model.Details.Type == URMade.Models.ContestType.Video)
+        {
+            <div class="contest-join-noentry">
+                You do not have any videos that can be submitted to this contest.<br /><br />
+                Please upload a video and try again.<br /><br />
+                <a href="/Video/Create">Click here to upload!</a>
+            </div>
+        }
+    }
+</div>

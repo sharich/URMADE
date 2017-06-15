@@ -1,0 +1,76 @@
+﻿@model URMade.EditUserGroupViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/editable-list")
+}
+
+<h2>Edit User Group</h2>
+
+<div class="form-horizontal">
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.PermissionGroups, new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.TemplateForEach(
+                    property: m => m.PermissionGroups,
+                    fallbackValue: PermissionGroup.None,
+                    template: (PermissionGroup group) =>
+                    @<div @Html.MakeEditableListFor(m => m.PermissionGroups, "Permission Group")>
+                        <select class="form-control" name="[]">
+                            <option value="">Choose a Permission Group...</option>
+                            @foreach (var option in Model.PermissionGroupOptions)
+                            {
+                                <option value="@option" @(option == group ? "selected" : "")>
+                                    @option.GetName()
+                                </option>
+                            }
+                        </select>
+                    </div>)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserIds, new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.TemplateForEach(
+                    property: m => m.UserIds,
+                    fallbackValue: "",
+                    template: (string userId) =>
+                    @<div @Html.MakeEditableListFor(m => m.UserIds, "User")>
+                        <select class="form-control" name="[]">
+                            <option value="">Choose a User Account...</option>
+                            @foreach (var option in Model.UserOptions)
+                            {
+                                <option value="@option.Id" @(option.Id == userId ? "selected" : "")>
+                                    @option.DisplayName
+                                </option>
+                            }
+                        </select>
+                    </div>)
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-8">
+                <button class="btn btn-primary">Save Changes</button>
+                <a href="@Url.Action("Details", "UserGroup", new { id = Model.Id })"
+                   class="btn btn-default">Cancel</a>
+            </div>
+        </div>
+    }
+</div>

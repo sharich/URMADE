@@ -1,0 +1,18 @@
+﻿@using URMade.Models
+<style>
+    table {border-collapse:collapse;}
+    td {border:solid black 1px;}
+</style>
+<table>
+@foreach(Song song in Model)
+{
+    <tr>
+        <td>@song.Title</td>
+        <td>@song.State</td>
+        <td>@song.AssetId</td>
+        <td>@song.JobId</td>
+        <td>@song.EncodedAssetId</td>
+        <td>@song.SmoothStreamingUri</td>
+    </tr>
+}
+</table>

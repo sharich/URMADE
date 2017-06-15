@@ -1,0 +1,49 @@
+﻿@model List<URMade.Models.ContestViewModel>
+@{
+    ViewBag.Title = "Contests";
+}
+
+<div class="pull-right" style="margin: 16px;">
+    <a class="btn btn-primary" href="@Url.Action("Create")">Add Contest</a>
+</div>
+
+<h2>All Contests</h2>
+
+<div class="layout">
+    @foreach (var Contest in Model)
+    {
+        <div style="margin-right: 32px; border-radius: 8px; display: inline-block; width: 256px; height: 128px; background-image: url('@Contest.ImageURL'); background-position: top; background-size: contain; background-repeat: no-repeat;"></div>
+        <div style="display: inline-block; width: 512px; vertical-align: top; margin-top: 8px;">
+            <div>@Contest.Name (@Contest.DisplayType())</div>
+            <div>@Contest.Start.ToString("MMMM dd yyyy") - @Contest.End.ToString("MMMM dd yyyy")</div>
+            <a href="/Contest/Edit/@Contest.ContestId" class="btn btn-primary btn-xs">Edit</a>
+            <a href="javascript:void(0);" class="btn btn-danger btn-xs" data-deleteid="@Contest.ContestId">Delete</a>
+        </div>
+    }
+</div>
+
+@Html.BootstrapModal(
+        title: "Confirm Delete Contest",
+        id: "confirmDelete",
+        confirmLabel: "Delete Contest",
+        body: @<div>Are you sure you want to delete this contest?</div>,
+        actionUrl: Url.Action("Delete", new { id = 0 }))
+
+<script>
+    (function()
+    {
+        var btnsDelete = document.querySelectorAll("a[data-deleteid]");
+
+        function modalDelete(e)
+        {
+            var btn = e.target;
+
+            $("#confirmDelete")[0].action = "/Contest/Delete/" + btn.dataset.deleteid;
+            $("#confirmDelete").modal();
+        }
+
+        for (var i = 0; i < btnsDelete.length; ++i)
+            if (btnsDelete[i].onclick == null)
+                btnsDelete[i].onclick = modalDelete;
+    })();
+</script>

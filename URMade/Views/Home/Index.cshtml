@@ -1,0 +1,163 @@
+﻿@model URMade.Models.HomeViewModel
+
+@{
+    ViewBag.Title = "Road to Super Stardum";
+    var loggedIn = SecurityHelper.GetLoggedInUser() != null;
+}
+
+<div class="hero-slideshow slides">
+    @if (Model.SlideshowURLs != null)
+    {
+        foreach (string url in Model.SlideshowURLs)
+        {
+            <img src="@url" />
+        }
+    }
+</div>
+
+@if (!loggedIn)
+{
+    <div class="banner-black">
+        <div>
+            <a href="/Account/Register">
+                Click Here For Your FREE Website<br/>
+                Get Started Today!
+            </a>
+        </div>
+
+        <div>
+            <a href="/Account/Login">
+                Members<br/>
+                Login Here
+            </a>
+        </div>
+    </div>
+}
+
+<div class="subheading"><h1>It's your chance to be made!</h1></div>
+
+<div class="layout page-home">
+    <div class="layout-content list-contests">
+        @if (Model.Contests != null && Model.Contests.Count > 0)
+        {
+            if (loggedIn)
+            {
+                foreach (var Contest in Model.Contests)
+                {
+                    <div style="background-image: url('@Contest.ImageURL');">
+                        <a href="/Contest/Join/@Contest.ContestId" class="contest-button-enter">Enter</a>
+                        <a href="/Contest/Vote/@Contest.ContestId" class="contest-button-vote">Vote</a>
+                    </div>
+                }
+            }
+            else
+            {
+                foreach (var Contest in Model.Contests)
+                {
+                    <div style="background-image: url('@Contest.ImageURL');">
+                        <a href="/Account/Register?redirecturl=/Contest/Join/@Contest.ContestId" class="contest-button-enter">Enter</a>
+                        <a href="/Account/Register?redirecturl=/Contest/Vote/@Contest.ContestId" class="contest-button-vote">Vote</a>
+                    </div>
+                }
+            }
+        }
+    </div>
+    <div class="layout-sidebar">
+        <div class="playlist-sidebar playlist-audio">
+            <div class="subheading"><h1>Listen to Music</h1></div>
+            <div class="playlist-header">Top Rated Songs @Html.DropDownList("SongSorting", DataHelper.GetSelectListItems("Sort"), new { @class = "playlist-sort" })</div>
+            <div class="dynamic playlist" data-playlist="/Song/Load"></div>
+            <a class="playlist-customize" href="/Song">Customize Your Playlist</a>
+        </div>
+        <div class="playlist-sidebar playlist-video">
+            <div class="subheading"><h1>Watch music videos</h1></div>
+            <div class="playlist-header">Top Rated Videos @Html.DropDownList("VideoSorting", DataHelper.GetSelectListItems("Sort"), new { @class = "playlist-sort" })</div>
+            <div class="playlist-player"></div>
+            <div class="dynamic playlist" data-playlist="/Video/Load"></div>
+            <a class="playlist-customize" href="/Video">Customize Your Playlist</a>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="subheading">
+        <h1>Top Bands</h1>
+        <a href="javascript: void(0);" class="playlist-queueAll">Play All</a>
+        <a href="/Artist/?type=Band">See All</a>
+    </div>
+
+    <div class="highlights playlist">
+        @foreach (var Artist in Model.TopBands)
+        {
+            <div style="background-image: url('@Artist.ImageUrl');">
+                <div class="highlight-information media-item" data-mediaurl="@Artist.SongUrl">
+                    <div class="highlight-control">
+                        <a class="highlight-toggle media-toggle media-play" data-mediaurl="@Artist.SongUrl"></a>
+                    </div>
+                    <div class="highlight-name-detail">
+                        <div class="highlight-name"><a href="/Artists/@Artist.ArtistSlug">@Artist.Name</a></div>
+                        <div class="highlight-detail">@Artist.SongName</div>
+                    </div>
+                    <div class="highlight-likes">@Artist.DisplayFanCount()</div>
+                    <div class="media-timeline"><div></div></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <div class="subheading">
+        <h1>Top SongWriters</h1>
+        <a href="javascript: void(0);" class="playlist-queueAll">Play All</a>
+        <a href="/Artist/?type=SongWriter">See All</a>
+    </div>
+
+    <div class="highlights playlist">
+        @foreach (var Artist in Model.TopWriters)
+        {
+            <div style="background-image: url('@Artist.ImageUrl');">
+                <div class="highlight-information media-item" data-mediaurl="@Artist.SongUrl">
+                    <div class="highlight-control">
+                        <a class="highlight-toggle media-toggle media-play" data-mediaurl="@Artist.SongUrl"></a>
+                    </div>
+                    <div class="highlight-name-detail">
+                        <div class="highlight-name"><a href="/Artists/@Artist.ArtistSlug">@Artist.Name</a></div>
+                        <div class="highlight-detail">@Artist.SongName</div>
+                    </div>
+                    <div class="highlight-likes">@Artist.DisplayFanCount()</div>
+                    <div class="media-timeline"><div></div></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="column4">
+    <div>
+        <div class="title">Get Online</div>
+        <div class="image"><img src="~/Content/Home/GetOnline.png" /></div>
+        <div class="description">Get a professional website for your band!</div>
+        <a class="learn-more" href="/wp/get-online">Learn More</a>
+    </div>
+    <div>
+        <div class="title">Get Swag</div>
+        <div class="image"><img src="~/Content/Home/GetSwag.png" /></div>
+        <div class="description">Get customized merchandise for your band!</div>
+        <a class="learn-more" href="/wp/get-swag">Learn More</a>
+    </div>
+    <div>
+        <div class="title">Get Protected</div>
+        <div class="image"><img src="~/Content/Home/GetProtected.png" /></div>
+        <div class="description">Copyright your song!</div>
+        <a class="learn-more" href="/wp/get-protected">Learn More</a>
+    </div>
+    <div>
+        <div class="title">Get Branded</div>
+        <div class="image"><img src="~/Content/Home/GetBranded.png" /></div>
+        <div class="description">Get professional design services for your band!</div>
+        <a class="learn-more" href="/wp/get-branded">Learn More</a>
+    </div>
+</div>
+
+@Html.Partial("MediaPlayer", Model.Songs)

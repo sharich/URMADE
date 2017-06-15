@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - URMade</title>
+    @Styles.RenderFormat("<link href='{0}?v=1' type='text/css' rel='stylesheet' />", "~/Content/css")
+    @Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=3'></script>", "~/bundles/modernizr")
+    @RenderSection("Head", required:false)
+
+    @{
+        var user        = SecurityHelper.GetLoggedInUser();
+        var artists     = user != null ? user.Artists : null;
+        var artistCount = artists != null && artists.Count > 0 ? (user.HasPermission(Permission.MultipleArtists) ? artists.Count : 1) : 0;
+    }
+
+    @if (user != null)
+    {
+        <script>var __loggedIn = true;</script>
+    }
+    else
+    {
+        <script>var __loggedIn = false;</script>
+    }
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".topbar-nav">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(Settings.SiteName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="topbar-nav navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    @if (SecurityHelper.LoggedInUserHasAny(Permission.EditMyUser, Permission.EditMyArtists))
+                    {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+                           role="button" aria-expanded="false" aria-haspopup="true">
+                            Account <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @if (SecurityHelper.LoggedInUserHas(Permission.EditMyUser))
+                            {
+                                <li>@Html.ActionLink("Profile", "Details", "User")</li>
+                                <li>@Html.ActionLink("My Songs", "MySongs", "Song", null, null)</li>
+                                <li>@Html.ActionLink("My Videos", "MyVideos", "Video")</li>
+                                <li>@Html.ActionLink("Membership", "Membership", "User")</li>
+                            }
+
+                            @if (SecurityHelper.LoggedInUserHas(Permission.EditMyArtists))
+                            {
+                                if (artistCount < 1){
+                                    <li>@Html.ActionLink("Add Website", "AddArtist", "Artist")</li>
+                                }
+                                else if (artistCount == 1)
+                                {
+                                    <li>@Html.ActionLink(artists.First().Name, "Website/" + artists.First().ArtistId, "Artist")</li>
+                                }
+                                else
+                                {
+                                    <li><span class="navbar-heading">Websites</span></li>
+                                    foreach (var artist in artists)
+                                    {
+                                        <li>@Html.ActionLink(artist.Name, "Website/" + artist.ArtistId, "Artist")</li>
+                                    }
+                                }
+                            }
+                        </ul>
+                    </li>
+                    }
+
+                    @if (SecurityHelper.LoggedInUserHasAny(Permission.EditUsers, Permission.EditArtists, Permission.EditUserGroups, Permission.EditSelectOptions, Permission.EditContests))
+                    {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+                           role="button" aria-expanded="false" aria-haspopup="true">
+                            Manage <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @if (SecurityHelper.LoggedInUserHas(Permission.EditUsers)){<li>@Html.ActionLink("Users", "Index", "User")</li>}
+                            @if (SecurityHelper.LoggedInUserHas(Permission.EditArtists)){<li>@Html.ActionLink("Artists", "Manage", "Artist")</li>}
+                            @if (SecurityHelper.LoggedInUserHas(Permission.EditUserGroups)){<li>@Html.ActionLink("User Groups", "Index", "UserGroup")</li>}
+                            @if (SecurityHelper.LoggedInUserHas(Permission.EditSelectOptions)){<li>@Html.ActionLink("Select Options", "Index", "SelectOptions")</li>}
+                            @if (SecurityHelper.LoggedInUserHas(Permission.EditContests)){<li>@Html.ActionLink("Contests", "Index", "Contest")</li>}
+                         </ul>
+                    </li>
+                    }
+
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+
+                <form class="quick-search">
+                    <input type="hidden" name="filters" value="Artists,Songs,Videos,Contests" />
+                    <input type="text" name="match" autocomplete="off" />
+                    <button><span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-remove"></span></button>
+                    <ul class="quick-search-results">
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="header navbar-inverse container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".header-nav">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(Settings.SiteName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="header-nav navbar-collapse collapse">
+                <ul class="nav navbar-nav secondary-nav">
+
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/wp/About">About Us</a></li>
+                    <li><a href="/Song/">Music</a></li>
+                    <li><a href="/Video/">Videos</a></li>
+                    <li><a href="/Contest/Vote">Contests</a></li>
+                    <li><a href="/wp/Contact">Contact Us</a></li>
+
+                </ul>
+            </div>
+    </div>
+        <div class="container body-content">
+            @if (ViewBag.notification != null)
+            {
+                try
+                {
+                    var notification = ViewBag.notification as ActionNotification;
+
+                    if (notification.Type == NotificationType.Success)
+                    {
+                        <div class="alert alert-success">@notification.Message</div>
+                    }
+                    else if (notification.Type == NotificationType.Error)
+                    {
+                        <div class="alert alert-danger">@notification.Message</div>
+                    }
+                }
+                catch (Exception e)
+                {
+                    //e.LogToElmah("Unable to cast ViewBag.notification to ActionNotification");
+                }
+            }
+
+            @if (TempData["FlashNotification"] != null)
+            {
+                try
+                {
+                    var notification = TempData["FlashNotification"] as ActionNotification;
+
+                    if (notification.Type == NotificationType.Success)
+                    {
+                        <div class="alert alert-success">@notification.Message</div>
+                    }
+                    else if (notification.Type == NotificationType.Error)
+                    {
+                        <div class="alert alert-danger">@notification.Message</div>
+                    }
+                }
+                catch (Exception e)
+                {
+                    // e.LogToElmah("Unable to cast TempData[\"FlashNotification\"] to ActionNotification");
+                }
+            }
+
+            @RenderBody()
+        </div>
+        <footer class="container">
+            <p>&copy; @DateTime.Now.Year - @Settings.SiteName</p>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/Scripts/script.js")
+        @RenderSection("scripts", required: false)
+</body>
+</html>

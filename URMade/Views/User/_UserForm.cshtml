@@ -1,0 +1,125 @@
+﻿@model EditUserViewModel
+@Html.HiddenFor(p=>p.AddArtist)
+<div class="form-group">
+    @Html.LabelFor(m => m.AccountType, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.RadioButtonForSelectList(p => p.AccountType, DataHelper.GetSelectListItems("Account Type"))
+        @Html.ValidationMessageFor(m => m.AccountType, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.PhotoURL, new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @if (!String.IsNullOrEmpty(Model.PhotoURL))
+        {
+            <div>
+                <img src="@Model.PhotoURL" style="width:150px;" />
+                <div class="btn btn-xs btn-danger" id="delete-profile-photo">Delete</div>
+            </div>
+            @Html.HiddenFor(m => m.DeletePhoto)
+
+        }
+        <input type="file" name="@Html.NameFor(m => m.PhotoUpload)" id="@Html.NameFor(m => m.PhotoUpload)">
+
+        @Html.ValidationMessageFor(m => m.PhotoUpload, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Name, new { @class = "control-label col-md-2", required = "required" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+@if (Settings.UsernameSameAsEmail == false)
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+}
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Email, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+@*
+<div class="form-group">
+    @Html.LabelFor(m => m.Slug, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        http://www.urmade.com/users/@Html.TextBoxFor(m => m.Slug, new { @class = "form-control", style= "display:inline-block;margin-left: 2px;" })
+        @Html.ValidationMessageFor(m => m.Slug, "", new { @class = "text-danger" })
+    </div>
+</div>
+*@
+
+@if (Model.ShowLongBiography)
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.BiographyLong, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.BiographyLong, 8, 20, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.BiographyLong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+}
+else
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.BiographyShort, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.BiographyShort, 8, 20, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.BiographyShort, "", new { @class = "text-danger" })
+        </div>
+    </div>
+}
+
+<div class="form-group">
+    @Html.Label("Privacy", new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <div>
+        @Html.CheckBoxFor(m => m.FavoriteArtistsArePublic)
+        @Html.LabelFor(m => m.FavoriteArtistsArePublic)
+        </div><div>
+        @Html.CheckBoxFor(m => m.FavoriteSongsArePublic)
+        @Html.LabelFor(m => m.FavoriteSongsArePublic)
+        </div><div>
+        @Html.CheckBoxFor(m => m.FavoriteVideosArePublic)
+        @Html.LabelFor(m => m.FavoriteVideosArePublic)
+        </div>
+    </div>
+</div>
+
+@if (Model.CanManageUsers)
+{
+    <div class="form-group">
+        <label class="col-md-2 control-label">User Groups</label>
+        <div class="col-md-8">
+        @Html.TemplateForEach(
+            property: m => m.UserGroupIds,
+            fallbackValue: -1,
+            template: (userGroupId) => 
+                @<div @Html.MakeEditableListFor(m => m.UserGroupIds, "Group")>
+                    <select name="[]" class="form-control">
+                        <option value="">Choose a User Group...</option>
+                        @foreach(var g in Model.UserGroupOptions)
+                        {
+                            <option value="@g.UserGroupId" @(userGroupId == g.UserGroupId ? "selected" : "")>
+                                @g.Name
+                            </option>
+                        }
+                    </select>
+                </div>)
+        </div>
+    </div>
+}

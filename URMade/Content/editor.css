@@ -1,0 +1,319 @@
+﻿._editor
+{
+    position:   absolute;
+    left:       0;
+    top:        0;
+    z-index:    100;
+}
+
+._editor .tool
+{
+    display:    block;
+    position:   absolute;
+    z-index:    2;
+}
+
+._editor .tool:not(.active)
+{
+    display: none;
+}
+
+._editor .text textarea
+{
+    display:    inline-block;
+    position:   absolute;
+    left:       4px;
+    top:        4px;
+    background: rgba(0, 128, 200, 0.1);
+    border:     0;
+    resize:     none;
+    overflow:   hidden;
+    outline:    none;
+}
+
+._editor .tool.imageDialog
+{
+    width: initial !important;
+    height: initial !important;
+}
+
+._editor .imageDialog img
+{
+    object-fit: contain;
+    width:      40%;
+}
+
+._editor .imageDialog input
+{
+    position:   absolute;
+    left:       50%;
+    top:        50%;
+}
+
+._editor .image input
+{
+    display: none;
+}
+
+._editor .dialog .tool
+{
+    position:   static;
+    display:    block;
+}
+
+._editor .handle, .editor-handle
+{
+    background-color:   rgba(0, 128, 200, 0.5);
+    color:              white;
+    padding:            2px 8px;
+    border-radius:      2px;
+    font-size:          12px;
+    white-space:        nowrap;
+    cursor:             pointer;
+    text-decoration:    none;
+    /*filter:             drop-shadow(2px 2px 1px black);*/
+
+    transition: background-color 300ms ease;
+}
+
+._editor .handle
+{
+    z-index: 3;
+}
+
+._editor .handle:hover, ._editor .handle.rollover, .editor-handle:hover
+{
+    background-color:   rgba(0, 128, 200, 1.0);
+    color:              white;
+    text-decoration:    none;
+}
+
+.editor-handle:focus
+{
+    background-color:   rgba(0, 128, 200, 1.0);
+    color:              white;
+    text-decoration:    none;
+}
+
+._editor .handle.current
+{
+    background-color:   rgba(160, 64, 64, 0.5);
+}
+
+._editor .handle.current:hover
+{
+    background-color:   rgba(160, 64, 64, 1.0);
+}
+
+._editor .handle
+{
+    position: absolute;
+}
+
+._editor .dialog
+{
+    background-color: rgba(0, 0, 0, 0.85);
+    
+    position:   fixed;
+    left:       0;
+    top:        0;
+    width:      100%;
+    height:     100%;
+
+    z-index: 4;
+}
+
+._editor .dialog.closed
+{
+    display: none;
+}
+
+._editor .dialog > div
+{
+    position:   absolute;
+    left:       calc(50% - 400px);
+    top:        calc(50% - 256px);
+    width:      800px;
+
+    background-color:   rgba(0, 128, 200, 0.5);
+    border-radius:      5px;
+    border:             2px solid rgba(0, 128, 200, 1.0);
+
+    color: white;
+
+    padding: 56px 16px;
+}
+
+._editor .dialog > div > h3
+{
+    position:       absolute;
+    top:            0;
+    left:           0;
+    width:          calc(100%);
+    margin-top:     8px;
+    border-bottom:  2px solid rgba(0, 128, 200, 1.0);
+    padding-bottom: 8px;
+    text-align:     center;
+}
+
+._editor .dialog button
+{
+    background-color:   rgba(0, 200, 255, 0.2);
+    border:             1px solid rgba(0, 200, 255, 1.0);
+    color:              white;
+    position:           absolute;
+    bottom:             4px;
+    outline:            none;
+    border-radius:      5px;
+    opacity:            0.7;
+    transition:         opacity 300ms ease,
+                        box-shadow 300ms ease;
+}
+
+._editor .dialog > div > button
+{
+    font-size:  20px;
+    padding:    4px 16px;
+}
+
+._editor .dialog button:hover
+{
+    opacity:    1.0;
+    box-shadow: rgba(0, 200, 255, 1.0) 0 0 8px inset;
+}
+
+._editor .dialog button.close-dialog
+{
+    right: 100px;
+}
+
+._editor .dialog button.save-dialog
+{
+    right: 4px;
+}
+
+._editor .dialog input[type='text']
+{
+    background-color:   rgba(0, 0, 0, 0);
+    border:             2px solid rgba(0, 200, 255, 1.0);
+    border-radius:      5px;
+    padding:            8px;
+    font-size:          16px;
+}
+
+._editor .dialog button
+{
+    background-color:   rgba(0, 0, 0, 0);
+    border:             1px solid rgba(0, 200, 255, 1.0);
+    border-radius:      5px;
+}
+
+form[data-editor]
+{
+    display: none;
+}
+
+._editor .dialog form[data-editor]
+{
+    display: block;
+}
+
+._editor .dialog .gallery
+{
+    height: 180px !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    width: initial !important;
+}
+
+._editor .dialog .gallery::-webkit-scrollbar
+{
+    width: 1em;
+}
+ 
+._editor .dialog .gallery::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+}
+ 
+._editor .dialog .gallery::-webkit-scrollbar-thumb
+{
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+._editor .gallery > form > span,
+._editor .gallery > button
+{
+    display: inline-block;
+    width: 128px;
+    height: 128px;
+    background-color: rgba(0, 0, 0, 0.25);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border-radius: 5px;
+    position: relative;
+    margin: 4px;
+}
+
+._editor .gallery > form > span
+{
+    margin: 0 4px 32px 4px;
+}
+
+._editor .gallery > form
+{
+    float: left;
+    max-height: 180px;
+    overflow-y: hidden;
+}
+
+._editor .gallery > form > span > input
+{
+    display: none;
+}
+
+._editor .gallery > form > span > button.upload
+{
+    position: absolute;
+    width: 50%;
+    right: 0;
+    bottom: -28px;
+    display: none;
+}
+
+._editor .gallery > form > span > button.erase
+{
+    position: absolute;
+    left: 20%;
+    width: 60%;
+    bottom: -28px;
+    height: 24px;
+}
+
+._editor .gallery > button::after
+{
+    content: "+";
+    position: absolute;
+    color: rgba(0, 0, 0, 0.25);
+    font-size: 128px;
+    top: 0;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    line-height: 0;
+    text-align: center;
+    top: 50%;
+}
+
+._editor .gallery > form > span.delete::after
+{
+    content:    "X";
+    display:    inline-block;
+    position:   absolute;
+    width:      100%;
+    text-align: center;
+    font-size:  10rem;
+    color:      red;
+}

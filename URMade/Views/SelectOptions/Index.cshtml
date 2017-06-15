@@ -1,0 +1,43 @@
+﻿@model URMade.Models.SelectOptionIndexViewModel
+@{
+    ViewBag.Title = "Select Option Management";
+}
+
+<h2>
+    <a href="@Url.Action("Edit")" class="btn btn-primary pull-right">Add Option Group</a>
+    Select Option Groups
+</h2>
+
+@if (Model.OptionGroups != null && Model.OptionGroups.Count() > 0)
+{
+    foreach(var group in Model.OptionGroups)
+    {
+        <div class="well">
+        <h4>
+            <a class="btn btn-primary pull-right btn-xs" href="@Url.Action("Edit", new { id = group.UrlId })">Edit</a>
+            @group.OptionGroupName
+        </h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Text</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            @foreach (var option in group.SelectOptions)
+            {
+                <tr>
+                    <td>@option.Text</td>
+                    <td>@option.Value</td>
+                </tr>
+            }
+        </table>
+        </div>
+    }
+}
+else
+{
+    <div class="well">No option groups have been created yet.</div>
+}
+
+

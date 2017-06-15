@@ -1,0 +1,43 @@
+﻿@model URMade.Models.ContestListViewModel
+@{
+    ViewBag.Title = "Vote";
+    var loggedIn = SecurityHelper.GetLoggedInUser() != null;
+}
+
+<style>
+    .contest
+    {
+        width: 512px;
+        margin: 32px auto;
+    }
+</style>
+
+<h2>Contests</h2>
+
+<div class="layout">
+    <div class="list-contests">
+        @if (Model.Contests != null && Model.Contests.Count > 0)
+        {
+            if (loggedIn)
+            {
+                foreach (var Contest in Model.Contests)
+                {
+                    <div style="background-image: url('@Contest.ImageURL');">
+                        <a href="/Contest/Join/@Contest.ContestId" class="contest-button-enter">Enter</a>
+                        <a href="/Contest/Vote/@Contest.ContestId" class="contest-button-vote">Vote</a>
+                    </div>
+                }
+            }
+            else
+            {
+                foreach (var Contest in Model.Contests)
+                {
+                    <div style="background-image: url('@Contest.ImageURL');">
+                        <a href="/Account/Register?redirecturl=/Contest/Join/@Contest.ContestId" class="contest-button-enter">Enter</a>
+                        <a href="/Account/Register?redirecturl=/Contest/Vote/@Contest.ContestId" class="contest-button-vote">Vote</a>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

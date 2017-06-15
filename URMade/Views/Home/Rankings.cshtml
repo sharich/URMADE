@@ -1,0 +1,24 @@
+﻿@model URMade.Models.RankingsPlaylistModel
+
+@{
+    ViewBag.Title = "Rankings";
+}
+
+@Html.Partial("MediaPlayer", Model.Songs)
+
+<div class="page-rankings">
+    <div>
+        <div class="subheading">
+            <h1>Top Songs</h1>
+            <a href="/Song">See All</a>
+        </div>
+        @Html.Partial("Playlist", Model.Songs)
+    </div>
+    <div>
+        <div class="subheading">
+            <h1>Top Videos</h1>
+            <a href="/Video">See All</a>
+        </div>
+        @Html.Partial("Playlist", Model.Videos)
+    </div>
+</div>
