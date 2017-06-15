@@ -25,7 +25,7 @@ namespace URMade
         /// they will be created and added to the "Developers" UserGroup.
         /// </summary>
         public static string[] DeveloperAccountEmails = {
-            "stephen@netguava.com",
+            "stephen@netguava.com", "davidh@engelads.com",
         };
 
         public static bool UsernameSameAsEmail = true;
